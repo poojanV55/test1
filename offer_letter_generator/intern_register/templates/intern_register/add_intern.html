@@ -1,0 +1,97 @@
+{%extends 'intern_register/base.html' %}
+
+{% block content %}
+    <!-- <div class="col-md-6 offset-md-3">
+    {% if submitted %}
+        Your Intern was Added Successfully!!
+    {% else %}
+    <div class="form-group">
+
+        <form action="{% url 'intern-list' %}" method=POST>
+            {% csrf_token %}
+            {% for field in form %}
+            <label>{{ field.label_tag }}</label>
+            {{ field }}
+            {% endfor %}
+            <br>
+            <input type="submit" value="Submit" class ="btn btn-primary">
+        </form>
+    </div>
+
+    {% endif %}
+    </div> -->
+
+{% if submitted %}
+<center>
+    Your Intern was Added Successfully!!
+    <br>
+    <br>
+    <a href="{% url 'add-intern' %}" class="btn btn-success" data-toggle="modal"> <span>Add New Intern</span></a>
+    <br>
+    <br>
+    Show Intern List
+    <br>
+    <br>
+    <a href="{% url 'intern-list' %}" class="btn btn-danger" data-toggle="modal"> <span>Show Intern List</span></a>
+
+<center>
+
+{% else %}
+<div class="container">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" , method="post">
+                {% csrf_token %}
+                <div class="modal-header">						
+                    <h4 class="modal-title">Add Intern</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                    {% for field in form %}
+                        {% if field.label %}
+                        <label>{{ field.label_tag }}</label>
+                        {{ field }}
+                        {% else %}
+                        <br>
+                        {{ field }}
+                        {% endif %}
+                        <!-- <input name="i_name" type="text" class="form-control" required> -->
+                    {% endfor %}					
+                    </div>   
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'intern-list' %}" class="btn btn-danger" data-toggle="modal"><span>Cancel</span></a>
+                    <input type="submit" class="btn btn-success" value="Add">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+<script>
+    $(document).ready(function(){
+	// Activate tooltip
+	$('[data-toggle="tooltip"]').tooltip();
+	
+	// Select/Deselect checkboxes
+	var checkbox = $('table tbody input[type="checkbox"]');
+	$("#selectAll").click(function(){
+		if(this.checked){
+			checkbox.each(function(){
+				this.checked = true;                        
+			});
+		} else{
+			checkbox.each(function(){
+				this.checked = false;                        
+			});
+		} 
+	});
+	checkbox.click(function(){
+		if(!this.checked){
+			$("#selectAll").prop("checked", false);
+		}
+	});
+});
+</script>
